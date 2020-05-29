@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from .models import Article, Category
@@ -21,7 +21,9 @@ def get_category(request, category_id):
 
 
 def view_article(request, article_id):
-    article_item = Article.objects.get(pk=article_id)
+    # article_item = Article.objects.get(pk=article_id)
+    article_item = get_object_or_404(Article, pk=article_id)
+
     return render(request, 'shop/view_article.html', {"article_item": article_item})
 
 
