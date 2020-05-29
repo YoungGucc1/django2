@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ article_item.title }} : {{ block.super }}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+                   <div class="card mb-3">
+                <div class="card-header">
+                    Категория: <a
+                        href="{{ article_item.category.get_absolute_url }}">{{ article_item.category }}</a>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        {% if article_item.photo %}
+                            <img src="{{ article_item.photo.url }}" width="200px" height="200px" alt=""
+                                 class="mr-3">
+                        {% else %}
+                            <img src="https://picsum.photos/200/200" alt="" class="mr-3">
+                        {% endif %}
+                        <div class="media-body">
+                            <h5 class="card-title">{{ article_item.title }}</h5>
+                            <p class="card-text">{{ article_item.content }}.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer text-muted">
+                    Создано: {{ article_item.created_at|timesince }}
+                </div>
+            </div>
+{% endblock %}
+
