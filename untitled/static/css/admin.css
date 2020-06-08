@@ -1,0 +1,9 @@
+#header {
+    background: #7d345c;
+    color: #20c997;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #7d345c;
+    color: #20c997;
+}
