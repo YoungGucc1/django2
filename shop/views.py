@@ -44,6 +44,8 @@ class CreateArticle(CreateView):
     template_name = 'shop/add_article.html'
 
 
+
+
 # def home(request):
 #     article = Article.objects.order_by('-created_at')
 #     context = {
@@ -67,16 +69,18 @@ class CreateArticle(CreateView):
 #     return render(request, 'shop/view_article.html', {"article_item": article_item})
 
 
-def add_article(request):
-    if request.method == 'POST':
-        form = ArticleForm(request.POST)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            article = Article.objects.create(**form.cleaned_data)
-            return redirect(article)
-    else:
-        form = ArticleForm()
-    return render(request, 'shop/add_article.html', {'form': form})
+# def add_article(request):
+#     if request.method == 'POST':
+#         form = ArticleForm(request.POST)
+#         if form.is_valid():
+#             # print(form.cleaned_data)
+#             article = Article.objects.create(**form.cleaned_data)
+#             return redirect(article)
+#     else:
+#         form = ArticleForm()
+#     return render(request, 'shop/add_article.html', {'form': form})
+
+
 #
 #
 # def shop(request):
