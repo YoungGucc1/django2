@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Article, Category
 from .forms import ArticleForm
@@ -10,6 +11,7 @@ from .forms import ArticleForm
 class HomeArticle (ListView):
     model = Article
     context_object_name = 'article'
+    paginate_by = 20
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,9 +41,12 @@ class ViewArticle(DetailView):
     context_object_name = 'article_item'
 
 
-class CreateArticle(CreateView):
+class CreateArticle(LoginRequiredMixin, CreateView):
     form_class = ArticleForm
     template_name = 'shop/add_article.html'
+    # login_url = '/admin/'
+    login_url = reverse_lazy('home')
+
 
 
 
