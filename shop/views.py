@@ -5,7 +5,64 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Article, Category
-from .forms import ArticleForm
+from .forms import ArticleForm, UserRegisterForm, UserLoginForm, ContactForm
+
+from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.core.mail import send_mail
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'shop/register.html', {"form": form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'shop/register.html', {"form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
+
+def test(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'gucc1y@yandex.kz', ['dilfar41@gmail.com'], fail_silently=True)
+            messages.success(request, 'Вы успешно зарегистрировались')
+            if mail:
+                messages.success(request, 'Письмо отправлено!')
+                return redirect('test')
+            else:
+                messages.error(request, 'Ошибка отправки')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = ContactForm()
+    return render(request, 'shop/test.html')
+
+
 
 
 class HomeArticle (ListView):

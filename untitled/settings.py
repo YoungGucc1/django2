@@ -136,3 +136,10 @@ INTERNAL_IPS = [
     '127.0.0.1',
 
 ]
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'gucc1y@yandex.kz'
+EMAIL_HOST_PASSWORD = 'Consumer500'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
